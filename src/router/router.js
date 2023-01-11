@@ -6,31 +6,40 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
-    redirect: '/home'
-  },
-  {
-    name: 'home', 
-    path: '/home', component: () => import (/* webpackChunkName: "Path" */'../modules/pokemon/pages/ListPage')  // carga perezosa
-  }, 
-  // {
-  //   path: '/pokemonid', component: PokemonPage // carga ansiosa
-  // },
-  {
-    name: 'pokemonid123',
-    path: '/pokemonid/:pokemonid', component: () => import (/* webpackChunkName: "Pokemon" */'../modules/pokemon/pages/PokemonPage'),
-    props: (route) => {
-      // console.log( route )
-      const pokemonid  = Number(route.params.pokemonid)
-      return isNaN( pokemonid ) ? { pokemonid : 1 } : { pokemonid }
+    name: 'pokemon',
+    path:'/pokemon',
+    component: () => import(/*webpackChunkName: "Pokemon"*/ '../modules/pokemon/layouts/PokemonLayout'),
+    children : [
       
-    }   
+      {
+        name: 'pokemon-home', 
+        path: 'home', component: () => import (/* webpackChunkName: "Path" */'../modules/pokemon/pages/ListPage')  // carga perezosa
+      }, 
+      // {
+      //   path: '/pokemonid', component: PokemonPage // carga ansiosa
+      // },
+      {
+        name: 'pokemon-id', // pokemonid123
+        path: 'pokemonid/:pokemonid', component: () => import (/* webpackChunkName: "Pokemon" */'../modules/pokemon/pages/PokemonPage'),
+        props: (route) => {
+          // console.log( route )
+          const pokemonid  = Number(route.params.pokemonid)
+          return isNaN( pokemonid ) ? { pokemonid : 1 } : { pokemonid }
+          
+        }   
+      },
+      {
+        name: 'pokemon-about',
+        path: 'about-page', component:  () => import(/* webpackChunkName: "About123xd" */'../modules/pokemon/pages/AboutPage') 
+        // carga perezosa
+      },
+      {
+        path: '',
+        redirect: { name: 'pokemon-home'} // Con esto no tienes que insertar rutas absolutas, así si realizas un cambio en el link, no tendrás que cambiarlo también aquí
+      }   
+    ]
   },
-  {
-    name: 'about',
-    path: '/about-page', component:  () => import(/* webpackChunkName: "About123xd" */'../modules/pokemon/pages/AboutPage') 
-    // carga perezosa
-  },
+
   {
     path: '/:pathMatch(.*)*', 
     component: () => import (/* webpackChunkName: "notFound" */'../modules/shared/pages/NoPageFound') 
