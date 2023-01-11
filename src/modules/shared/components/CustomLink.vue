@@ -5,10 +5,11 @@
   :href="link.to">{{ link.name }}</a>
 
   <router-link v-else
-    :to="link.to" 
-    v-slot="{ mi_href, isActive}"
+    :to="definirParametros()"  
+    v-slot="{ isActive}"
     > 
-     <a :href="mi_href" 
+    <!-- href, isActive-->
+     <a  
      :class=" (isActive)? 'is-active': 'normal-link' ">
      {{link.name}}
     </a>
@@ -22,6 +23,18 @@ export default {
     link : {
       type: Object,
       required: true
+    }
+  },
+
+  methods: {
+    definirParametros() {
+      let resp = null
+      if( this.link.pokemonid ){
+        resp = { name : this.link.to, params : { pokemonid : this.link.pokemonid} }
+      } else {
+        resp = { name: this.link.to}
+      } 
+      return resp
     }
   },
 

@@ -5,6 +5,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // import NoPageFound from "../modules/shared/pages/NoPageFound";
 
 const routes = [
+
+  // route Pokemon
   {
     name: 'pokemon',
     path:'/pokemon',
@@ -34,11 +36,39 @@ const routes = [
         // carga perezosa
       },
       {
+        name: 'pokemon-redireccion',
         path: '',
         redirect: { name: 'pokemon-home'} // Con esto no tienes que insertar rutas absolutas, así si realizas un cambio en el link, no tendrás que cambiarlo también aquí
       }   
     ]
   },
+
+  // route dbz
+
+  {
+    name: 'dbz',
+    path: '/dbz',
+    component: () => import(/*webpackChunkName: "dbz"*/ '../modules/dbz/layout/DragonBallLayout'),
+    children: [
+      {
+        name:'dbz-about',
+        path: 'about',
+        component: () => import( /*webpackChunkName: "dbzAbout*/ '../modules/dbz/pages/About')
+      },
+      {
+        name:'dbz-characters',
+        path: 'characters',
+        component: () => import( /*webpackChunkName: "dbzAbout*/ '../modules/dbz/pages/Characters')
+      },
+      {
+        name: 'dbz-redireccion',
+        path: '',
+        redirect: { name: 'dbz-about'}
+      }
+    ]
+  },
+
+
 
   {
     path: '/:pathMatch(.*)*', 

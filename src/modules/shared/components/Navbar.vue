@@ -21,10 +21,14 @@ import { defineAsyncComponent } from 'vue';
       return {
         links : [
           // La desventaja de usar nombres en vez de objetos literales
-          { to: '/home', name: 'Pokemons'},
-          { to: '/pokemonid/50', name: 'Por ID'},
-          { to: '/about-page', name: 'About'},
+          { to: 'pokemon-home', name: 'Pokemons' },
+          { to: 'pokemon-id', name: 'Por ID', pokemonid:13  },
+          { to: 'pokemon-about', name: 'About'},
+
           { to: 'https://google.com', name: 'Google'},
+
+          { to: 'dbz-about', name: 'DBZ about' },
+          { to: 'dbz-characters', name: 'DBZ characters' }
         ]
       }
     },
