@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import isAuthenticatedGuard from './auth-guard';
 // import ListPage from '../modules/pokemon/pages/ListPage'
 // import PokemonPage from '../modules/pokemon/pages/PokemonPage'  
 // import AboutPage from '../modules/pokemon/pages/AboutPage'  
@@ -48,6 +49,7 @@ const routes = [
   {
     name: 'dbz',
     path: '/dbz',
+    beforeEnter: [ isAuthenticatedGuard ], // Se pueden anidar todos los guards que necesites, y sólo se necesitan las referencias de la función. Si quieres autenticación en cada componente deberás ponerlo en los componentes hijos
     component: () => import(/*webpackChunkName: "dbz"*/ '../modules/dbz/layout/DragonBallLayout'),
     children: [
       {
@@ -80,5 +82,53 @@ const router = createRouter({
   history: createWebHashHistory(), // OJO
   routes,
 })
+
+
+// Guard global - síncronos
+/*
+router.beforeEach( ( to, from, next ) => {
+  // Ese beforeEach se ejecuta en todas las rutas antes de entrar
+  // console.log( to )
+  // console.log( from )
+  // console.log( next )
+  
+  const numeroAleatorio = Math.random() * 100;
+
+  if( numeroAleatorio < 50 ){
+    console.log("permitido pasar");
+    next();
+  } else {
+    console.log('Bloqueado por beforeEach Guard por el número', numeroAleatorio)
+    next( { name : 'pokemon-home' })
+  }
+})
+*/
+
+
+// Guard asíncrono
+/*
+const guardAsincrono = () => {
+  return new Promise( resolve => {
+    const numeroAleatorio = Math.random() * 100;
+
+    if( numeroAleatorio < 50 ){
+      console.log("permitido pasar - asincrono");
+      resolve( true )
+    } else {
+      console.log(' asincrono - Bloqueado por beforeEach Guard por el número', numeroAleatorio)
+      resolve( false )
+    }
+  })
+}
+
+router.beforeEach( async ( to, from, next) => {
+  const autorizado = await guardAsincrono();
+  ( autorizado )
+    ? next()
+    : next( { name : 'pokemon-home' });
+})
+*/
+
+
 
 export default router
