@@ -24,8 +24,10 @@ export default {
         
         this.pokemon = pokemon
         console.log( this.pokemon )
+        // setTimeout(()=> this.$router.push('/pokemon/about-page'), 2500)
+        // setTimeout(()=> this.$router.push({name : 'pokemon-about'}), 2500)
       }catch( err ){
-        this.$router.push('/')
+        this.$router.push('/') // Con éste push uno puede cambiar a diferentes router-views con el nombre
         console.log('No hay nada que hacer aquí')
       }
     }

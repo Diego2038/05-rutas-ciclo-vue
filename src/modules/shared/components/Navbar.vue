@@ -24,6 +24,7 @@ import { defineAsyncComponent } from 'vue';
           { to: 'pokemon-home', name: 'Pokemons' },
           { to: 'pokemon-id', name: 'Por ID', pokemonid:13  },
           { to: 'pokemon-about', name: 'About'},
+          { to: 'prove', name: 'Prueba 😭'},
 
           { to: 'https://google.com', name: 'Google'},
 

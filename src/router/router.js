@@ -23,9 +23,10 @@ const routes = [
       // },
       {
         name: 'pokemon-id', // pokemonid123
-        path: 'pokemonid/:pokemonid', component: () => import (/* webpackChunkName: "Pokemon" */'../modules/pokemon/pages/PokemonPage'),
+        path: 'pokemonid/:pokemonid', 
+        component: () => import (/* webpackChunkName: "Pokemon" */'../modules/pokemon/pages/PokemonPage'),
         props: (route) => {
-          // console.log( route )
+          console.log( route )
           const pokemonid  = Number(route.params.pokemonid)
           return isNaN( pokemonid ) ? { pokemonid : 1 } : { pokemonid }
           
@@ -35,6 +36,11 @@ const routes = [
         name: 'pokemon-about',
         path: 'about-page', component:  () => import(/* webpackChunkName: "About123xd" */'../modules/pokemon/pages/AboutPage') 
         // carga perezosa
+      },
+      {
+        name: 'prove',
+        path: 'prove',
+        component: () => import( '../modules/pokemon/pages/Prove')
       },
       {
         name: 'pokemon-redireccion',
@@ -55,12 +61,12 @@ const routes = [
       {
         name:'dbz-about',
         path: 'about',
-        component: () => import( /*webpackChunkName: "dbzAbout*/ '../modules/dbz/pages/About')
+        component: () => import( /*webpackChunkName: "dbzAbout" */ '../modules/dbz/pages/About')
       },
       {
         name:'dbz-characters',
         path: 'characters',
-        component: () => import( /*webpackChunkName: "dbzAbout*/ '../modules/dbz/pages/Characters')
+        component: () => import( /*webpackChunkName: "dbzCharacters"*/ '../modules/dbz/pages/Characters')
       },
       {
         name: 'dbz-redireccion',
@@ -85,7 +91,7 @@ const router = createRouter({
 
 
 // Guard global - síncronos
-/*
+/* // * Nota que el beforeEach es para todos y cada uno de los componentes (rara vez se utiliza)
 router.beforeEach( ( to, from, next ) => {
   // Ese beforeEach se ejecuta en todas las rutas antes de entrar
   // console.log( to )
